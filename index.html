@@ -1,0 +1,1785 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>pandaesim</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"/>
+</head>
+<body>
+  <div class="phone-screen">
+
+    <!-- 스크롤 영역 -->
+    <div class="main-scroll">
+
+    <!-- 헤더 -->
+    <div class="header">
+      <img src="logo.svg" alt="로고" class="logo"/>
+      <div class="header__actions">
+        <!-- 알림 -->
+        <button class="header__btn" aria-label="알림">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+          <span class="header__badge"></span>
+        </button>
+      </div>
+    </div>
+
+      <!-- 안심+ 배너 버튼 -->
+      <button class="assurance-banner" id="assuranceBtn">
+        <div class="assurance-banner__icon">
+          <div class="assurance-banner__badge">
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="10" fill="#22C55E"/>
+              <polyline points="5,10 8.5,13.5 15,6.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="assurance-banner__text">
+          <span class="assurance-banner__title">지원 기기 확인하기</span>
+          <span class="assurance-banner__sub">내 휴대폰에 이심 서비스를 사용할 수 있나요?</span>
+        </div>
+        <svg class="assurance-banner__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5C0" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <div class="card-grid">
+        <!-- 이사 (왼쪽 큰 카드) -->
+        <div class="card card--large" id="esimCardBtn">
+          <p class="card-large__title">여행지 eSIM 구매</p>
+          <p class="card-large__sub">해외에서도 데이터 걱정 없이<br>도착하자마자 바로 연결하세요</p>
+        </div>
+
+        <!-- 내 데이터 확인 카드 -->
+        <div class="card card--text" id="myDataCard">
+          <!-- 기본 상태 (구매 전) -->
+          <div id="myDataEmpty">
+            <p class="card__title">구매한 eSIM이 없어요</p>
+            <button class="mydata-install-btn" disabled>설치하기</button>
+          </div>
+          <!-- 구매 후 상태 -->
+          <div id="myDataInfo" style="display:none;">
+            <div class="mydata-header">
+              <div class="mydata-flag" id="myDataFlag"></div>
+              <span class="mydata-country" id="myDataCountry">일본 무제한</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0C4CC" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <p class="mydata-status" id="myDataStatus">설치 전</p>
+            <p class="mydata-plan" id="myDataPlan">매일 1GB LTE · 1일</p>
+            <button class="mydata-install-btn" id="myDataInstallBtn">설치하기</button>
+          </div>
+        </div>
+
+        <!-- 운송 -->
+        <div class="card card--text">
+          <p class="card__title">승무원 전용</p>
+          <p class="card__sub">노선별 eSIM을 빠르게 준비하세요</p>
+        </div>
+
+        <!-- 에어컨청소 + 세탁기청소 합침 -->
+        <div class="card card--wide">
+          <div class="card-wide__inner">
+            <div class="card-wide__text">
+              <p class="card-wide__title">올데이 무제한</p>
+              <p class="card-wide__sub">하루종일 자유롭고 빠르게 사용해보세요!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 흰색 배너 영역 -->
+      <div class="banner-section">
+
+      <!-- 배너 흰색 띠 -->
+      <div class="banner-bg">
+      <div class="banner-wrap">
+        <div class="banner-track" id="bannerTrack">
+          <div class="banner-slide" style="background:linear-gradient(135deg,#4A6CF7,#7B5CF7);"></div>
+          <div class="banner-slide" style="background:linear-gradient(135deg,#F76A4A,#F7A44A);"></div>
+          <div class="banner-slide" style="background:linear-gradient(135deg,#4ACF7A,#4ACFCF);"></div>
+          <div class="banner-slide" style="background:linear-gradient(135deg,#CF4A9F,#7A4ACF);"></div>
+          <div class="banner-slide" style="background:linear-gradient(135deg,#F7C24A,#F76A4A);"></div>
+          <div class="banner-slide" style="background:linear-gradient(135deg,#4A6CF7,#7B5CF7);"></div>
+        </div>
+        <div class="banner-pager">
+          <span id="bannerCurrent">1</span>/<span id="bannerTotal">5</span>
+        </div>
+      </div><!-- /banner-wrap -->
+      </div><!-- /banner-bg -->
+
+      <!-- 섹션 타이틀 -->
+      <div class="section-title-wrap">
+        <p class="section-title">여행 안심+</p>
+        <p class="section-subtitle">여행 중에 생긴 문제를 모두 해결해드려요</p>
+      </div>
+
+      <!-- 가로 스크롤 박스 4개 -->
+      <div class="hscroll-wrap">
+        <div class="hscroll-track">
+          <div class="hscroll-box"></div>
+          <div class="hscroll-box"></div>
+          <div class="hscroll-box"></div>
+          <div class="hscroll-box"></div>
+        </div>
+      </div>
+
+      <!-- 텍스트 버튼 2개 -->
+      <div class="sub-links">
+        <button class="sub-link-btn">
+          <span class="sub-link-text">고객센터 연결하기</span>
+        </button>
+        <div class="sub-links__divider"></div>
+        <button class="sub-link-btn">
+          <span class="sub-link-text sub-link-text--point">안심+보상 신청하기</span>
+        </button>
+      </div>
+
+      <!-- 섹션 2: 리스트 카드 3개 -->
+      <div class="list-section">
+        <div class="list-section__header">
+          <p class="list-section__title">내 여행에 딱 맞는 이심</p>
+          <button class="list-more-btn">
+            <span class="list-more-btn__text">더보기</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B95A1" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <div class="list-cards">
+          <!-- 카드 1 -->
+          <div class="list-card">
+            <div class="list-card__logo">
+              <img src="https://flagcdn.com/w80/kr.png" alt="대한민국"/>
+            </div>
+            <div class="list-card__info">
+              <p class="list-card__name">완전 무제한</p>
+              <div class="ph ph--price"></div>
+              <div class="list-card__badges">
+                <div class="badge badge--gray"></div>
+                <div class="badge badge--blue"></div>
+              </div>
+            </div>
+          </div>
+          <!-- 카드 2 -->
+          <div class="list-card">
+            <div class="list-card__logo">
+              <img src="https://flagcdn.com/w80/kr.png" alt="대한민국"/>
+            </div>
+            <div class="list-card__info">
+              <p class="list-card__name">매일 5GB</p>
+              <div class="ph ph--price"></div>
+              <div class="list-card__badges">
+                <div class="badge badge--gray"></div>
+                <div class="badge badge--blue"></div>
+              </div>
+            </div>
+          </div>
+          <!-- 카드 3 -->
+          <div class="list-card">
+            <div class="list-card__logo">
+              <img src="https://flagcdn.com/w80/kr.png" alt="대한민국"/>
+            </div>
+            <div class="list-card__info">
+              <p class="list-card__name">매일 3GB</p>
+              <div class="ph ph--price"></div>
+              <div class="list-card__badges">
+                <div class="badge badge--gray"></div>
+                <div class="badge badge--blue badge--blue-wide"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div><!-- /banner-section -->
+
+      <!-- 여행 스토리 섹션 -->
+      <div class="story-section">
+        <p class="story-section__title">여행 스토리</p>
+        <div class="story-track">
+          <div class="story-card">
+            <div class="story-card__img" style="background:linear-gradient(135deg,#A8B8F8,#C5B8F8);"></div>
+            <div class="story-card__body">
+              <p class="story-card__title">1분 만에 알아보는 여행 사용 방법</p>
+              <p class="story-card__sub">여행 가이드</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card__img" style="background:linear-gradient(135deg,#F8C8A8,#F8A8C8);"></div>
+            <div class="story-card__body">
+              <p class="story-card__title">1분 만에 알아보는 여행 사용 방법</p>
+              <p class="story-card__sub">여행 가이드</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card__img" style="background:linear-gradient(135deg,#A8F8C8,#A8E8F8);"></div>
+            <div class="story-card__body">
+              <p class="story-card__title">1분 만에 알아보는 여행 사용 방법</p>
+              <p class="story-card__sub">여행 가이드</p>
+            </div>
+          </div>
+          <div class="story-card">
+            <div class="story-card__img" style="background:linear-gradient(135deg,#F8F0A8,#F8C8A8);"></div>
+            <div class="story-card__body">
+              <p class="story-card__title">1분 만에 알아보는 여행 사용 방법</p>
+              <p class="story-card__sub">여행 가이드</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 배경색 구분 영역 -->
+      <div class="bg-gap"></div>
+
+      <!-- 하단 흰색 영역 -->
+      <div class="bottom-white">
+        <p class="bottom-legal">用户协议 · 隐私政策 · 资质信息</p>
+      </div>
+
+    </div><!-- /main-scroll -->
+
+    <!-- 검색 패널 -->
+    <div class="slide-panel" id="searchPanel">
+      <div class="slide-panel__header">
+        <p class="slide-panel__title" style="font-size:20px;">검색</p>
+        <button class="slide-panel__back" id="searchPanelClose">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="slide-panel__body">
+        <!-- 검색창 -->
+        <div class="search-box">
+          <input class="search-input" id="countrySearchInput" type="text" placeholder="국가 또는 도시를 검색하세요"/>
+          <svg class="search-icon" id="searchIconSvg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A1" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <button class="search-clear" id="searchClearBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#C4C9D4"/><line x1="15" y1="9" x2="9" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="15" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+
+        <!-- 검색 결과 -->
+        <div id="searchResults" style="display:none;">
+          <p class="search-section-title">이 플랜을 찾으시나요?</p>
+          <div class="search-result-list" id="searchResultList"></div>
+        </div>
+
+        <!-- 기본 화면 -->
+        <div id="searchDefault">
+        <!-- 최근 검색 -->
+        <div class="search-recent-header">
+          <p class="search-section-title" style="margin:0;">최근 검색</p>
+          <button class="search-recent-clear-all" id="recentClearAll" style="display:none;">전체 삭제</button>
+        </div>
+        <div id="recentSearchList">
+          <div class="search-empty"><span>최근 검색한 여행지가 없어요</span></div>
+        </div>
+        <!-- 인기국가 플랜 -->
+        <p class="search-section-title search-section-title--gap">인기국가 플랜</p>
+        <div class="country-grid">
+          <!-- 일본 -->
+          <div class="country-card" data-name="일본">
+            <div class="country-card__img"><img src="japan.png" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"/></div>
+            <p class="country-card__name">일본</p>
+            <p class="country-card__price">600원~</p>
+            <div class="country-card__badges">
+              <span class="cbadge cbadge--green">∞ 올데이+</span>
+              <span class="cbadge cbadge--blue">더블팩</span>
+            </div>
+            <p class="country-card__count">구매 201.1만+</p>
+          </div>
+          <!-- 태국 -->
+          <div class="country-card" data-name="태국">
+            <div class="country-card__img"><img src="thailand.png" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"/></div>
+            <p class="country-card__name">태국</p>
+            <p class="country-card__price">700원~</p>
+            <div class="country-card__badges">
+              <span class="cbadge cbadge--green">∞ 올데이+</span>
+              <span class="cbadge cbadge--blue">더블팩</span>
+            </div>
+            <p class="country-card__count">구매 51.7만+</p>
+          </div>
+          <!-- 베트남 -->
+          <div class="country-card" data-name="베트남">
+            <div class="country-card__img"><img src="vietnam.png" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"/></div>
+            <p class="country-card__name">베트남</p>
+            <p class="country-card__price">700원~</p>
+            <div class="country-card__badges">
+              <span class="cbadge cbadge--green">∞ 올데이+</span>
+              <span class="cbadge cbadge--blue">더블팩</span>
+            </div>
+            <p class="country-card__count">구매 36.9만+</p>
+          </div>
+          <!-- 홍콩 -->
+          <div class="country-card" data-name="홍콩">
+            <div class="country-card__img"><img src="hongkong.png" style="width:100%;height:100%;object-fit:cover;border-radius:14px;"/></div>
+            <p class="country-card__name">홍콩</p>
+            <p class="country-card__price">800원~</p>
+            <div class="country-card__badges">
+              <span class="cbadge cbadge--green">올데이</span>
+              <span class="cbadge cbadge--red">New</span>
+            </div>
+            <p class="country-card__count">구매 14.4만+</p>
+          </div>
+        </div><!-- /country-grid -->
+        </div><!-- /searchDefault -->
+      </div><!-- /slide-panel__body -->
+    </div><!-- /searchPanel -->
+
+    <!-- 국가 상세 패널 -->
+    <div class="slide-panel" id="countryDetailPanel">
+
+      <!-- 헤더 -->
+      <div class="cdp2-header">
+        <button class="cdp2-header__back" id="countryDetailClose">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="cdp2-header__title" id="cdpHeaderTitle">홍콩 무제한</span>
+        <div class="cdp2-header__right">
+          <button class="cdp2-header__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </button>
+          <button class="cdp2-header__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 스크롤 콘텐츠 -->
+      <div class="cdp-body">
+        <span id="cdpTitle" style="display:none;"></span>
+
+        <!-- 상단 히어로 영역 -->
+        <div class="cdp2-hero">
+          <div class="cdp2-flag">
+            <img id="cdpFlagImg" src="hongkong.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>
+          </div>
+          <h2 class="cdp2-name" id="cdpCountryName">홍콩 무제한</h2>
+          <div class="cdp2-badges">
+            <span class="cdp2-badge cdp2-badge--dark">충전가능</span>
+            <span class="cdp2-badge cdp2-badge--teal">연장가능</span>
+          </div>
+          <p class="cdp2-price" id="cdpStartPrice">800원 부터</p>
+        </div>
+
+        <!-- 정보 박스 -->
+        <div class="cdp2-info-box">
+          <div class="cdp2-info-row">
+            <span class="cdp2-info-label">사용가능지역</span>
+            <span class="cdp2-info-value" id="cdpInfoRegion">홍콩</span>
+          </div>
+          <div class="cdp2-info-divider"></div>
+          <div class="cdp2-info-row">
+            <span class="cdp2-info-label">플랜 시작</span>
+            <span class="cdp2-info-value">사용가능지역 도착 시</span>
+          </div>
+          <div class="cdp2-info-divider"></div>
+          <div class="cdp2-info-row">
+            <span class="cdp2-info-label">네트워크망</span>
+            <span class="cdp2-info-value" id="cdpInfoNetwork">China Mobile / SmarTone</span>
+          </div>
+        </div>
+
+        <!-- 탭바 -->
+        <div class="cdp2-tabs">
+          <button class="cdp2-tab cdp2-tab--active" data-tab="features">주요 기능</button>
+          <button class="cdp2-tab" data-tab="guide">사용 가이드</button>
+          <button class="cdp2-tab" data-tab="refund">취소·환불 기준</button>
+        </div>
+
+        <!-- 주요 기능 섹션 -->
+        <div class="cdp2-tab-content" id="cdp2-features">
+          <div class="cdp2-feature">
+            <div class="cdp2-feature__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="cdp2-feature__text">
+              <p class="cdp2-feature__title">데이터 전용 플랜</p>
+              <p class="cdp2-feature__desc">여행에 필수적인 지도검색, 음악, 보이스톡 등을 사용할 수 있는 데이터 전용 플랜이에요.</p>
+            </div>
+          </div>
+          <div class="cdp2-feature__divider"></div>
+          <div class="cdp2-feature">
+            <div class="cdp2-feature__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="cdp2-feature__text">
+              <p class="cdp2-feature__title">24시간마다 자동 충전</p>
+              <p class="cdp2-feature__desc">사용가능지역에 도착하면 플랜이 바로 시작되고, 24시간마다 고속데이터가 충전돼요.</p>
+            </div>
+          </div>
+          <div class="cdp2-feature__divider"></div>
+          <div class="cdp2-feature">
+            <div class="cdp2-feature__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="cdp2-feature__text">
+              <p class="cdp2-feature__title">기간 연장</p>
+              <p class="cdp2-feature__desc">기간을 연장하면 새로 설치하는 과정 없이 쭉 데이터를 추가할 수 있어요.</p>
+            </div>
+          </div>
+          <div class="cdp2-feature__divider"></div>
+          <div class="cdp2-feature">
+            <div class="cdp2-feature__icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div class="cdp2-feature__text">
+              <p class="cdp2-feature__title">데이터 충전</p>
+              <p class="cdp2-feature__desc">데이터가 부족할 경우 앱에서 바로 추가 충전이 가능해요.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사용 가이드 섹션 -->
+        <div class="cdp2-tab-content" id="cdp2-guide">
+          <p class="cdp2-section-title">사용 가이드</p>
+          <div class="cdp2-guide-card">
+            <p class="cdp2-guide-q">Q.</p>
+            <p class="cdp2-guide-qtitle">여행 전 미리 구매해도 되나요?</p>
+            <p class="cdp2-guide-a">주문한 eSIM은 즉시 제공되며, 구매일로부터 180일 안에 사용하면 돼요.</p>
+          </div>
+          <div class="cdp2-guide-card">
+            <p class="cdp2-guide-q">Q.</p>
+            <p class="cdp2-guide-qtitle">한국 번호로 온 연락, 어떻게 확인하나요?</p>
+            <p class="cdp2-guide-a">한국 회선을 켜두면 나의 한국 번호로 오는 전화와 문자를 확인할 수 있고, 문자에 답장하지 않거나 전화를 받지 않으면 로밍비를 내지 않아요.</p>
+            <button class="cdp2-guide-more">자세히 알아보기</button>
+          </div>
+          <div class="cdp2-guide-card">
+            <p class="cdp2-guide-q">Q.</p>
+            <p class="cdp2-guide-qtitle">eSIM은 어떻게 사용하나요?</p>
+            <p class="cdp2-guide-a">구매한 eSIM은 설치 후 사용할 수 있어요. 인터넷 연결이 안정적인 곳에서 설치해주세요.</p>
+          </div>
+        </div>
+
+        <!-- 취소·환불 섹션 -->
+        <div class="cdp2-tab-content" id="cdp2-refund">
+          <p class="cdp2-section-title">취소·환불 기준</p>
+          <div class="cdp2-refund-box">
+            <ul class="cdp2-refund-list">
+              <li>eSIM을 선물 및 설치하지 않았다면, 상품 수령일로부터 7일 이내에 환불 신청이 가능해요.</li>
+              <li>eSIM의 특성상 설치 후 상품 회수 및 이용 중단이 어렵기 때문에, 이미 설치한 eSIM은 환불할 수 없어요.</li>
+              <li>eSIM 사용 중 오류가 생기면 현지에서 고객센터로 문의해주세요. 사전 확인 없이 귀국 후 환불 요청하는 경우 처리가 불가능해요.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /cdp-body -->
+
+      <!-- 고정 하단 버튼 -->
+      <div class="cdp-bottom-bar">
+        <button class="cdp-buy-fixed-btn cdp-buy-fixed-btn--active" id="cdpBuyBtn">800원 부터 구매하기</button>
+      </div>
+    </div><!-- /countryDetailPanel -->
+
+    <!-- 구매 플로우 패널 -->
+    <div class="slide-panel" id="purchasePanel">
+      <!-- 헤더 -->
+      <div class="purch-header">
+        <button class="purch-header__back" id="purchaseClose">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="purch-header__title">구매하기</span>
+        <div style="width:36px;"></div>
+      </div>
+
+      <!-- 스크롤 바디 -->
+      <div class="purch-body">
+
+        <!-- 안내 + 날짜 선택 영역 (선택 후 접힘) -->
+        <div class="purch-intro">
+          <p class="purch-intro__country">홍콩 에서</p>
+          <p class="purch-intro__question" id="purchQuestion">며칠 동안 사용할지 선택해주세요</p>
+        </div>
+
+        <!-- 날짜 선택 카드 (항상 같은 위치 고정) -->
+        <div class="purch-day-card" id="purchDayCard">
+          <!-- 토글 행: 선택 전엔 안내문, 선택 후엔 "N일 동안" 으로 텍스트만 교체 -->
+          <div class="purch-dayinfo-row" id="purchDayInfoBtn">
+            <span class="purch-dayinfo-row__text" id="purchDayInfoText">24시간 기준으로 하루를 계산해요</span>
+            <svg class="purch-dayinfo-row__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5B4" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <!-- 펼쳐지는 날짜 리스트 -->
+          <div class="purch-daylist-wrap" id="purchDayListWrap">
+            <div class="purch-day-list" id="purchDayList">
+              <button class="purch-day-item" data-day="1">1일</button>
+              <button class="purch-day-item" data-day="2">2일</button>
+              <button class="purch-day-item" data-day="3">3일</button>
+              <button class="purch-day-item" data-day="4">4일</button>
+              <button class="purch-day-item" data-day="5">5일</button>
+              <button class="purch-day-item" data-day="6">6일</button>
+              <button class="purch-day-item" data-day="7">7일</button>
+              <button class="purch-day-item" data-day="10">10일</button>
+              <button class="purch-day-item" data-day="15">15일</button>
+              <button class="purch-day-item" data-day="30">30일</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 데이터 플랜 섹션 (날짜 선택 후 펼쳐짐) -->
+        <div class="purch-data-section" id="purchDataSection">
+          <div class="dp-intro">
+            <p class="dp-intro__title">매일 사용할 고속데이터를 선택해주세요</p>
+            <p class="dp-intro__sub">고속데이터를 다 쓰면 저속으로 연결돼요</p>
+          </div>
+          <div class="dp-plan-list" id="dpPlanList">
+            <div class="dp-plan-card" data-price="5,300" data-label="매일 1GB LTE + 저속 무제한 플랜을">
+              <div class="dp-plan-card__top">
+                <span class="dp-plan-card__gb">1GB</span>
+                <div class="dp-plan-card__prices">
+                  <span class="dp-plan-card__original">6,200원</span>
+                  <span class="dp-plan-card__sale">5,300원</span>
+                </div>
+              </div>
+              <p class="dp-plan-card__desc">짧은 영상을 보거나 사진을 보낼 수 있어요</p>
+            </div>
+            <div class="dp-plan-card" data-price="9,100" data-label="매일 2GB LTE + 저속 무제한 플랜을">
+              <div class="dp-plan-card__top">
+                <span class="dp-plan-card__gb">2GB</span>
+                <div class="dp-plan-card__prices">
+                  <span class="dp-plan-card__original">12,100원</span>
+                  <span class="dp-plan-card__sale">9,100원</span>
+                </div>
+              </div>
+              <p class="dp-plan-card__desc">영상도 보고 SNS도 하기에 충분해요</p>
+            </div>
+            <div class="dp-plan-card" data-price="11,400" data-label="매일 3GB LTE + 저속 무제한 플랜을">
+              <span class="dp-plan-card__best">Best</span>
+              <div class="dp-plan-card__top">
+                <span class="dp-plan-card__gb">3GB</span>
+                <div class="dp-plan-card__prices">
+                  <span class="dp-plan-card__original">17,500원</span>
+                  <span class="dp-plan-card__sale">11,400원</span>
+                </div>
+              </div>
+              <p class="dp-plan-card__desc">잔여량 걱정 없이 자유롭게 사용해요</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 선택된 플랜 표시 -->
+        <div class="purch-day-selected" id="purchPlanSelected">
+          <span class="purch-day-selected__text" id="purchPlanSelectedText"></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5B4" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <!-- 개수 선택 섹션 -->
+        <div class="purch-data-section" id="purchQtySection">
+          <!-- 바깥 타이틀 -->
+          <div class="dp-intro" id="purchQtyIntro">
+            <p class="dp-intro__title">몇 개 구매할지 선택해주세요</p>
+            <p class="dp-intro__sub">구매 후 다른 사람에게 선물할 수 있어요</p>
+          </div>
+          <!-- 카드: 토글 행 + 리스트 -->
+          <div class="purch-day-card">
+            <div class="purch-qty-header" id="purchQtyToggle">
+              <span class="purch-qty-header__label">개수를 선택해주세요</span>
+              <svg class="purch-qty-header__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5B4" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="purch-qty-list-wrap" id="purchQtyListWrap">
+              <div class="purch-day-list" id="purchQtyList">
+                <button class="purch-day-item" data-qty="1">1개</button>
+                <button class="purch-day-item" data-qty="2">2개</button>
+                <button class="purch-day-item" data-qty="3">3개</button>
+                <button class="purch-day-item" data-qty="4">4개</button>
+                <button class="purch-day-item" data-qty="5">5개</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 선택된 개수 표시 -->
+        <div class="purch-day-selected" id="purchQtySelected">
+          <span class="purch-day-selected__text" id="purchQtySelectedText"></span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5B4" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <!-- 최종 가격 확인 섹션 -->
+        <div class="purch-data-section" id="purchSummarySection">
+          <div class="dp-intro" style="padding-bottom:0;">
+            <p class="dp-intro__title">구매할 거예요</p>
+          </div>
+          <div class="purch-summary-row">
+            <div class="purch-summary-card purch-summary-card--left">
+              <p class="purch-summary-label">주문 금액</p>
+              <p class="purch-summary-original" id="purchOriginalPrice">-</p>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C4C9D4" stroke-width="2" stroke-linecap="round" style="flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>
+            <div class="purch-summary-card purch-summary-card--right">
+              <span class="purch-summary-badge" id="purchDiscountBadge">24% 할인</span>
+              <p class="purch-summary-label">상품 금액</p>
+              <p class="purch-summary-sale" id="purchSalePrice">-</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /purch-body -->
+
+      <!-- 하단 버튼 -->
+      <div class="purch-bottom" id="purchBottom">
+        <button class="purch-buy-btn" id="purchBuyBtn" disabled>사용 기간을 선택해주세요</button>
+        <button class="purch-cart-btn" id="purchCartBtn" style="display:none;">장바구니 담기</button>
+      </div>
+    </div><!-- /purchasePanel -->
+
+    <!-- 데이터 플랜 선택 패널 -->
+    <div class="slide-panel" id="dataPlanPanel">
+      <!-- 헤더 -->
+      <div class="purch-header">
+        <button class="purch-header__back" id="dataPlanClose">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="purch-header__title">구매하기</span>
+        <div style="width:36px;"></div>
+      </div>
+
+      <div class="purch-body">
+        <!-- 국가 -->
+        <div class="purch-intro">
+          <p class="purch-intro__country">홍콩 에서</p>
+        </div>
+
+        <!-- 선택된 날짜 드롭다운 -->
+        <div class="dp-day-selector" id="dpDaySelector">
+          <span class="dp-day-selector__text" id="dpDayText">5일 동안</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5B4" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <!-- 안내 텍스트 -->
+        <div class="dp-intro">
+          <p class="dp-intro__title">매일 사용할 고속데이터를 선택해주세요</p>
+          <p class="dp-intro__sub">고속데이터를 다 쓰면 저속으로 연결돼요</p>
+        </div>
+
+        <!-- 데이터 플랜 카드 리스트 (dataPlanPanel용, 미사용) -->
+        <div class="dp-plan-list" id="dpPlanList2">
+          <!-- 1GB -->
+          <div class="dp-plan-card" data-price="5,300원">
+            <div class="dp-plan-card__top">
+              <span class="dp-plan-card__gb">1GB</span>
+              <div class="dp-plan-card__prices">
+                <span class="dp-plan-card__original">6,200원</span>
+                <span class="dp-plan-card__sale">5,300원</span>
+              </div>
+            </div>
+            <p class="dp-plan-card__desc">짧은 영상을 보거나 사진을 보낼 수 있어요</p>
+          </div>
+          <!-- 2GB -->
+          <div class="dp-plan-card" data-price="9,100원">
+            <div class="dp-plan-card__top">
+              <span class="dp-plan-card__gb">2GB</span>
+              <div class="dp-plan-card__prices">
+                <span class="dp-plan-card__original">12,100원</span>
+                <span class="dp-plan-card__sale">9,100원</span>
+              </div>
+            </div>
+            <p class="dp-plan-card__desc">영상도 보고 SNS도 하기에 충분해요</p>
+          </div>
+          <!-- 3GB Best -->
+          <div class="dp-plan-card" data-price="11,400원">
+            <span class="dp-plan-card__best">Best</span>
+            <div class="dp-plan-card__top">
+              <span class="dp-plan-card__gb">3GB</span>
+              <div class="dp-plan-card__prices">
+                <span class="dp-plan-card__original">17,500원</span>
+                <span class="dp-plan-card__sale">11,400원</span>
+              </div>
+            </div>
+            <p class="dp-plan-card__desc">잔여량 걱정 없이 자유롭게 사용해요</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 버튼 -->
+      <div class="purch-bottom">
+        <button class="purch-buy-btn" id="dpBuyBtn" disabled>고속데이터를 선택해주세요</button>
+      </div>
+    </div><!-- /dataPlanPanel -->
+
+    <!-- 슬라이드 패널 오버레이 -->
+    <div class="panel-overlay" id="panelOverlay"></div>
+
+    <!-- 슬라이드 패널 -->
+    <div class="slide-panel" id="slidePanel">
+      <!-- 기본 화면: 기종 선택 -->
+      <div class="device-sheet">
+        <div class="device-sheet__handle"></div>
+        <p class="device-sheet__title">어떤 기종의 휴대폰인가요?</p>
+
+        <!-- 선택 + 다음 버튼 -->
+        <div class="ds-select-wrap" id="dsSelectWrap">
+          <div class="device-sheet__select" id="deviceSelectRow">
+            <span class="device-sheet__select-text" id="deviceSelectText">리스트에서 선택해주세요</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5C0" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <button class="device-sheet__next" id="deviceNextBtn">다음</button>
+        </div>
+
+        <!-- 인라인 로딩 -->
+        <div class="ds-loading" id="dsLoading">
+          <div class="spinner"></div>
+        </div>
+
+        <!-- 체크 결과 + 다음 질문 (지원 O) -->
+        <div class="ds-result" id="dsResult">
+          <div class="ds-check-row">
+            <svg class="ds-check-svg" viewBox="0 0 28 22" width="12" height="10" fill="none">
+              <polyline class="ds-check-stroke" points="2,12 10,20 26,2" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="ds-check-text">eSIM이 지원되는 기기에요</span>
+          </div>
+          <div class="ds-question-wrap">
+            <p class="ds-question">중국, 홍콩, 마카오에서 구입하셨나요?</p>
+
+            <!-- 2단계 로딩 (아니오 클릭 후, 질문 바로 아래) -->
+            <div class="ds-loading ds-loading2" id="dsLoading2">
+              <div class="spinner"></div>
+            </div>
+
+            <!-- 2단계 체크 결과 (로딩 완료 후, 질문 바로 아래) -->
+            <div class="ds-result2" id="dsResult2">
+              <div class="ds-check-row">
+                <svg class="ds-check-svg2" viewBox="0 0 28 22" width="12" height="10" fill="none">
+                  <polyline class="ds-check-stroke2" points="2,12 10,20 26,2" stroke="#22C55E" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="ds-check-text2">완벽해요! eSIM을 사용할 수 있어요 🎉</span>
+              </div>
+            </div>
+
+            <div class="ds-answer-btns" id="dsAnswerBtns">
+              <button class="ds-ans-btn ds-ans-btn--dark" id="dsNoBtn">아니오</button>
+              <button class="ds-ans-btn ds-ans-btn--light" id="dsResetBtn">네</button>
+            </div>
+          </div>
+
+          <!-- 팁 (완벽해요 이후 등장) -->
+          <div class="ds-tip" id="dsTip">
+            <div class="ds-tip__header">
+              <svg class="ds-tip__svg" viewBox="0 0 20 20" width="13" height="13" fill="none">
+                <circle class="ds-tip__circle" cx="10" cy="10" r="8" stroke="#9AA5C0" stroke-width="2" stroke-linecap="round"/>
+                <line class="ds-tip__excl-line" x1="10" y1="6" x2="10" y2="11.5" stroke="#9AA5C0" stroke-width="2" stroke-linecap="round"/>
+                <circle class="ds-tip__excl-dot" cx="10" cy="14.5" r="1" fill="#9AA5C0"/>
+              </svg>
+              <p class="ds-tip__title">위 요건을 충족해도 eSIM을 설치할 수 없다면?</p>
+            </div>
+            <div class="ds-tip__body">
+              <p class="ds-tip__desc">이동 통신사 잠금이 걸려있을 수 있어요</p>
+              <p class="ds-tip__desc">이 경우 사용하는 통신사를 통해 해제할 수 있어요</p>
+              <p class="ds-tip__desc">대부분의 휴대폰은 걸려있지 않으니 안심하세요.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 구매 버튼 (팁 이후 등장) -->
+        <button class="ds-buy-btn" id="dsBuyBtn">eSIM 구매하러 가기</button>
+
+        <!-- X 결과 (지원 X) -->
+        <div class="ds-result" id="dsResultFail">
+          <div class="ds-check-row">
+            <svg class="ds-x-svg" viewBox="0 0 20 20" width="12" height="12" fill="none">
+              <line class="ds-x-line1" x1="3" y1="3" x2="17" y2="17" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/>
+              <line class="ds-x-line2" x1="17" y1="3" x2="3" y2="17" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span class="ds-fail-text">아쉽게도 eSIM을 지원하지 않아요</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 모델 리스트 패널 (오른쪽에서 슬라이드인) -->
+      <div class="model-list-panel" id="modelListPanel">
+        <div class="model-list-panel__header">
+          <button class="model-list-panel__close" id="modelListClose">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A2E" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <p class="model-list-panel__title">휴대폰 모델 선택</p>
+          <div style="width:28px"></div>
+        </div>
+        <div class="model-list-panel__body">
+          <div class="model-item">갤럭시 Z 폴드 7</div>
+          <div class="model-item">갤럭시 Z 폴드 6</div>
+          <div class="model-item">갤럭시 Z 폴드 5</div>
+          <div class="model-item">갤럭시 Z 폴드 4</div>
+          <div class="model-item">갤럭시 Z 폴드 3</div>
+          <div class="model-item">갤럭시 Z 폴드 2</div>
+          <div class="model-item">갤럭시 Z 폴드</div>
+          <div class="model-item">갤럭시 퀀텀 6</div>
+          <div class="model-item">갤럭시 퀀텀 5</div>
+          <div class="model-item">갤럭시 퀀텀 4</div>
+          <div class="model-item">갤럭시 A35 5G</div>
+          <div class="model-item">그외 갤럭시 A 시리즈</div>
+          <div class="model-item">갤럭시 노트 시리즈</div>
+          <div class="model-item">이외의 갤럭시 모델</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 하단 탭바 -->
+    <div class="tab-bar">
+      <!-- 홈 -->
+      <button class="tab-btn tab-btn--active">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+          <polyline points="9 21 9 12 15 12 15 21"/>
+        </svg>
+        <span>首页</span>
+      </button>
+      <!-- 스토어 -->
+      <button class="tab-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span>套餐</span>
+      </button>
+      <!-- 마이 eSIM -->
+      <button class="tab-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <path d="M15 2v5h-4L9 9v2h6v2H9v2h6v2H9v3"/>
+        </svg>
+        <span>我的卡</span>
+      </button>
+      <!-- 마이페이지 -->
+      <button class="tab-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>我的</span>
+      </button>
+    </div>
+
+    <!-- 폭죽 캔버스 (폰 화면 전체 커버) -->
+    <canvas id="fireworksCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;display:none;z-index:999;"></canvas>
+
+  </div>
+<script>
+  (function() {
+    var overlay    = document.getElementById('panelOverlay');
+    var slidePanel = document.getElementById('slidePanel');
+    var searchPanel = document.getElementById('searchPanel');
+
+    var countryDetailPanel = document.getElementById('countryDetailPanel');
+
+    function openSlide()  { slidePanel.classList.add('active');  overlay.classList.add('active'); }
+    function openSearch() { searchPanel.classList.add('active'); overlay.classList.add('active'); }
+    // ── 국가별 데이터 ──
+    var countryData = {
+      '홍콩': {
+        img: 'hongkong.png',
+        title: '홍콩 무제한',
+        startPrice: '800',
+        region: '홍콩',
+        network: 'China Mobile / SmarTone',
+        plans: [
+          { price: '5,300', label: '매일 1GB LTE + 저속 무제한 플랜을', gb: '1GB', original: '6,200원', sale: '5,300원', desc: '짧은 영상을 보거나 사진을 보낼 수 있어요' },
+          { price: '9,100', label: '매일 2GB LTE + 저속 무제한 플랜을', gb: '2GB', original: '12,100원', sale: '9,100원', desc: '영상도 보고 SNS도 하기에 충분해요', best: true },
+          { price: '11,400', label: '매일 3GB LTE + 저속 무제한 플랜을', gb: '3GB', original: '17,500원', sale: '11,400원', desc: '잔여량 걱정 없이 자유롭게 사용해요' },
+        ]
+      },
+      '일본': {
+        img: 'japan.png',
+        title: '일본 무제한',
+        startPrice: '600',
+        region: '일본',
+        network: 'NTT Docomo / SoftBank',
+        plans: [
+          { price: '4,500', label: '매일 1GB LTE + 저속 무제한 플랜을', gb: '1GB', original: '5,200원', sale: '4,500원', desc: '짧은 영상을 보거나 사진을 보낼 수 있어요' },
+          { price: '7,800', label: '매일 2GB LTE + 저속 무제한 플랜을', gb: '2GB', original: '10,400원', sale: '7,800원', desc: '영상도 보고 SNS도 하기에 충분해요', best: true },
+          { price: '9,900', label: '매일 3GB LTE + 저속 무제한 플랜을', gb: '3GB', original: '15,000원', sale: '9,900원', desc: '잔여량 걱정 없이 자유롭게 사용해요' },
+        ]
+      },
+      '태국': {
+        img: 'thailand.png',
+        title: '태국 무제한',
+        startPrice: '500',
+        region: '태국',
+        network: 'AIS / DTAC',
+        plans: [
+          { price: '3,900', label: '매일 1GB LTE + 저속 무제한 플랜을', gb: '1GB', original: '4,600원', sale: '3,900원', desc: '짧은 영상을 보거나 사진을 보낼 수 있어요' },
+          { price: '6,800', label: '매일 2GB LTE + 저속 무제한 플랜을', gb: '2GB', original: '9,100원', sale: '6,800원', desc: '영상도 보고 SNS도 하기에 충분해요', best: true },
+          { price: '8,600', label: '매일 3GB LTE + 저속 무제한 플랜을', gb: '3GB', original: '13,200원', sale: '8,600원', desc: '잔여량 걱정 없이 자유롭게 사용해요' },
+        ]
+      },
+      '베트남': {
+        img: 'vietnam.png',
+        title: '베트남 무제한',
+        startPrice: '450',
+        region: '베트남',
+        network: 'Viettel / Mobifone',
+        plans: [
+          { price: '3,500', label: '매일 1GB LTE + 저속 무제한 플랜을', gb: '1GB', original: '4,200원', sale: '3,500원', desc: '짧은 영상을 보거나 사진을 보낼 수 있어요' },
+          { price: '6,200', label: '매일 2GB LTE + 저속 무제한 플랜을', gb: '2GB', original: '8,300원', sale: '6,200원', desc: '영상도 보고 SNS도 하기에 충분해요', best: true },
+          { price: '7,900', label: '매일 3GB LTE + 저속 무제한 플랜을', gb: '3GB', original: '12,000원', sale: '7,900원', desc: '잔여량 걱정 없이 자유롭게 사용해요' },
+        ]
+      },
+    };
+
+    function openCountryDetail(name) {
+      var data = countryData[name];
+      if (!data) { alert('데이터 없음: ' + name); return; }
+      window._purchCurrentCountry = name;
+
+      // 헤더
+      document.getElementById('cdpHeaderTitle').textContent = data.title;
+
+      // 히어로
+      document.getElementById('cdpFlagImg').src = data.img;
+      document.getElementById('cdpCountryName').textContent = data.title;
+      document.getElementById('cdpStartPrice').textContent = data.startPrice + '원 부터';
+
+      // 정보 박스
+      document.getElementById('cdpInfoRegion').textContent = data.region;
+      document.getElementById('cdpInfoNetwork').textContent = data.network;
+
+      // 구매 패널 국가명
+      document.querySelectorAll('.purch-intro__country').forEach(function(el) {
+        el.textContent = data.region + ' 에서';
+      });
+
+      // 구매하기 버튼 가격
+      document.getElementById('cdpBuyBtn').textContent = data.startPrice + '원 부터 구매하기';
+
+      // 데이터 플랜 카드 동적 생성
+      var planList = document.getElementById('dpPlanList');
+      planList.innerHTML = data.plans.map(function(p) {
+        return '<div class="dp-plan-card" data-price="' + p.price + '" data-label="' + p.label + '">' +
+          (p.best ? '<span class="dp-plan-card__best">Best</span>' : '') +
+          '<div class="dp-plan-card__top">' +
+            '<span class="dp-plan-card__gb">' + p.gb + '</span>' +
+            '<div class="dp-plan-card__prices">' +
+              '<span class="dp-plan-card__original">' + p.original + '</span>' +
+              '<span class="dp-plan-card__sale">' + p.sale + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<p class="dp-plan-card__desc">' + p.desc + '</p>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('cdpTitle').textContent = name;
+      countryDetailPanel.classList.add('active');
+    }
+    function closeAll()   {
+      slidePanel.classList.remove('active');
+      searchPanel.classList.remove('active');
+      countryDetailPanel.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+
+    document.getElementById('countryDetailClose').addEventListener('click', function() {
+      countryDetailPanel.classList.remove('active');
+    });
+
+    // 아코디언 토글
+    function toggleAccordion(id) {
+      document.getElementById(id).classList.toggle('cdp-accordion--open');
+    }
+
+    // 로밍망 / 총알로컬망 탭 전환
+    // FAQ 아코디언
+    function toggleFaq(btn) {
+      var item = btn.closest('.cdp-faq__item');
+      item.classList.toggle('cdp-faq__item--open');
+    }
+
+    document.querySelectorAll('.cdp-network-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.cdp-network-tab').forEach(function(t) {
+          t.classList.remove('cdp-network-tab--active');
+        });
+        this.classList.add('cdp-network-tab--active');
+        document.querySelectorAll('.cdp-network-content').forEach(function(c) {
+          c.style.display = 'none';
+        });
+        var target = this.dataset.target;
+        if (target) document.getElementById(target).style.display = 'block';
+      });
+    });
+
+    // 상품 카드 선택
+
+
+    document.getElementById('assuranceBtn').addEventListener('click', openSlide);
+    document.getElementById('esimCardBtn').addEventListener('click', openSearch);
+
+    // 인기국가 카드 클릭
+    document.querySelectorAll('.country-card[data-name]').forEach(function(card) {
+      card.addEventListener('click', function() {
+        openCountryDetail(this.dataset.name);
+      });
+    });
+    document.getElementById('searchPanelClose').addEventListener('click', closeAll);
+    overlay.addEventListener('click', closeAll);
+
+    // ── 다음 버튼 플로우 ──
+    var nextBtn      = document.getElementById('deviceNextBtn');
+    var dsSelectWrap = document.getElementById('dsSelectWrap');
+    var dsLoading    = document.getElementById('dsLoading');
+    var dsResult     = document.getElementById('dsResult');
+    var dsResultFail = document.getElementById('dsResultFail');
+
+    // 지원하지 않는 모델 목록
+    var unsupportedModels = ['갤럭시 퀀텀 6'];
+
+    function resetDevice() {
+      dsLoading.classList.remove('visible');
+      dsResult.classList.remove('visible');
+      dsResultFail.classList.remove('visible');
+      // 2단계 초기화
+      var loading2 = document.getElementById('dsLoading2');
+      var result2  = document.getElementById('dsResult2');
+      var btns     = document.getElementById('dsAnswerBtns');
+      if (loading2) loading2.classList.remove('visible');
+      if (result2)  result2.classList.remove('visible');
+      var tip = document.getElementById('dsTip');
+      var buyBtn = document.getElementById('dsBuyBtn');
+      if (tip) tip.classList.remove('visible');
+      if (buyBtn) buyBtn.classList.remove('visible');
+      if (btns) { btns.style.opacity = ''; btns.style.pointerEvents = ''; btns.style.display = ''; btns.style.transition = ''; }
+      document.getElementById('deviceSelectText').textContent = '리스트에서 선택해주세요';
+      document.getElementById('deviceSelectText').style.color = '';
+      nextBtn.classList.remove('active');
+      nextBtn.style.display = '';
+    }
+
+    nextBtn.addEventListener('click', function() {
+      if (!nextBtn.classList.contains('active')) return;
+      nextBtn.style.display = 'none';
+      dsResult.classList.remove('visible');
+      dsResultFail.classList.remove('visible');
+      dsLoading.classList.add('visible');
+
+      var selected = document.getElementById('deviceSelectText').textContent.trim();
+      var isUnsupported = unsupportedModels.indexOf(selected) !== -1;
+
+      setTimeout(function() {
+        dsLoading.classList.remove('visible');
+        if (isUnsupported) {
+          dsResultFail.classList.add('visible');
+        } else {
+          dsResult.classList.add('visible');
+        }
+      }, 1200);
+    });
+
+    document.getElementById('dsResetBtn').addEventListener('click', resetDevice);
+
+    // 폭죽 실행 함수
+    function launchFireworks() {
+      var canvas = document.getElementById('fireworksCanvas');
+      var ctx = canvas.getContext('2d');
+
+      // 폰 화면 = 393 × 852px 기준
+      var W = 393, H = 852;
+      canvas.width = W;
+      canvas.height = H;
+      canvas.style.display = 'block';
+
+      // 물리 설정: 바닥(y=852)에서 출발 → 화면 1/2(y=426)까지 상승 → 낙하
+      // 상승 거리 = 426px, 상승 시간 = 120 프레임(≈2초 @60fps)
+      // g = 2*d / t² = 2*426 / 120² ≈ 0.0592 px/f²
+      var riseFrames = 120;
+      var peakDist   = H / 2;          // 426px 올라감
+      var g          = 2 * peakDist / (riseFrames * riseFrames); // 0.0592
+      var vy0base    = g * riseFrames;  // 7.1 px/f (위쪽 방향 = 음수)
+
+      var colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#C77DFF','#FF9F1C','#F72585'];
+      var particles = [];
+
+      for (var i = 0; i < 130; i++) {
+        var spread = 0.8 + Math.random() * 0.4; // 목표 고도 ±20%
+        particles.push({
+          x:        30 + Math.random() * (W - 60),
+          y:        H,
+          vx:       (Math.random() - 0.5) * 2.5,
+          vy:       -(vy0base * spread),
+          color:    colors[Math.floor(Math.random() * colors.length)],
+          size:     4 + Math.random() * 5,
+          alpha:    1,
+          rotation: Math.random() * 360,
+          rotSpeed: (Math.random() - 0.5) * 8,
+          gravity:  g * (0.9 + Math.random() * 0.2),
+          delay:    Math.floor(Math.random() * 22) // 출발 타이밍 분산
+        });
+      }
+
+      var frame      = 0;
+      var TOTAL      = 240; // 4초 @60fps
+      var fadeStart  = H / 2; // y=426 아래로 내려오면 fade 시작
+
+      function animate() {
+        ctx.clearRect(0, 0, W, H);
+        frame++;
+        var alive = false;
+
+        particles.forEach(function(p) {
+          if (frame < p.delay) { alive = true; return; }
+          if (p.alpha <= 0) return;
+          alive = true;
+
+          p.x  += p.vx;
+          p.y  += p.vy;
+          p.vy += p.gravity;
+
+          // 하강 중이고 1/2 아래로 내려오면 fade
+          if (p.vy > 0 && p.y > fadeStart) {
+            p.alpha -= 1 / (riseFrames * 0.85);
+          }
+
+          p.rotation += p.rotSpeed;
+
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.45);
+          ctx.restore();
+        });
+
+        if (frame < TOTAL && alive) {
+          requestAnimationFrame(animate);
+        } else {
+          canvas.style.display = 'none';
+        }
+      }
+      animate();
+    }
+
+    // 아니오 → 로딩 → 체크 → 폭죽
+    document.getElementById('dsNoBtn').addEventListener('click', function() {
+      var btns = document.getElementById('dsAnswerBtns');
+      btns.style.transition = 'opacity 0.3s';
+      btns.style.opacity = '0';
+      btns.style.pointerEvents = 'none';
+      setTimeout(function() { btns.style.display = 'none'; }, 300);
+
+      // 2단계 로딩 표시 (버튼 display:none 이후 시작)
+      var loading2 = document.getElementById('dsLoading2');
+      var result2  = document.getElementById('dsResult2');
+      setTimeout(function() { loading2.classList.add('visible'); }, 310);
+
+      setTimeout(function() {
+        loading2.classList.remove('visible');
+        result2.classList.add('visible');
+
+        // 체크 + 텍스트 완료 후 팁 카드 등장
+        setTimeout(function() {
+          document.getElementById('dsTip').classList.add('visible');
+          // 팁 등장 후 구매 버튼 등장
+          setTimeout(function() {
+            document.getElementById('dsBuyBtn').classList.add('visible');
+            // 폭죽 발사
+            launchFireworks();
+          }, 400);
+        }, 900);
+      }, 1200);
+    });
+
+    // 국가 상세 탭 — 클릭 시 해당 섹션으로 스크롤
+    document.querySelectorAll('.cdp2-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var target = document.getElementById('cdp2-' + this.dataset.tab);
+        if (!target) return;
+        var body = document.querySelector('#countryDetailPanel .cdp-body');
+        var tabsEl = document.querySelector('.cdp2-tabs');
+        var offset = target.offsetTop - tabsEl.offsetHeight;
+        body.scrollTo({ top: offset, behavior: 'smooth' });
+      });
+    });
+
+    // 스크롤 시 탭 활성화 동기화
+    (function() {
+      var body = document.querySelector('#countryDetailPanel .cdp-body');
+      var sections = ['features', 'guide', 'refund'];
+      if (!body) return;
+      body.addEventListener('scroll', function() {
+        var tabsHeight = document.querySelector('.cdp2-tabs').offsetHeight;
+        var current = sections[0];
+        sections.forEach(function(id) {
+          var el = document.getElementById('cdp2-' + id);
+          if (el && el.offsetTop - tabsHeight - 10 <= body.scrollTop) {
+            current = id;
+          }
+        });
+        document.querySelectorAll('.cdp2-tab').forEach(function(t) {
+          t.classList.toggle('cdp2-tab--active', t.dataset.tab === current);
+        });
+      });
+    })();
+
+    // ── 내 데이터 카드 렌더링 ──
+    function renderMyDataCard(info) {
+      var empty = document.getElementById('myDataEmpty');
+      var infoEl = document.getElementById('myDataInfo');
+      if (!info) {
+        empty.style.display = '';
+        infoEl.style.display = 'none';
+        return;
+      }
+      // 국기 이미지
+      var flagEl = document.getElementById('myDataFlag');
+      flagEl.innerHTML = '<img src="' + info.img + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+      document.getElementById('myDataCountry').textContent = info.title;
+      document.getElementById('myDataStatus').textContent = info.status || '설치 전';
+      // 플랜 설명: "매일 Xgb LTE · N일" 형태
+      document.getElementById('myDataPlan').textContent = info.label + ' · ' + info.days + '일';
+      empty.style.display = 'none';
+      infoEl.style.display = '';
+    }
+
+    // (UI 확인용 — 새로고침 시 초기화)
+
+    // 구매 패널 초기화 함수
+    function resetPurchasePanel() {
+      // 날짜 카드 초기화
+      var infoBtn = document.getElementById('purchDayInfoBtn');
+      infoBtn.classList.remove('purch-dayinfo-row--open');
+      infoBtn.dataset.selected = 'false';
+      var dayInfoText = document.getElementById('purchDayInfoText');
+      dayInfoText.textContent = '24시간 기준으로 하루를 계산해요';
+      dayInfoText.classList.remove('purch-dayinfo-row__text--selected');
+      document.getElementById('purchDayListWrap').classList.remove('purch-daylist-wrap--open');
+      document.querySelectorAll('#purchDayList .purch-day-item').forEach(function(b) {
+        b.classList.remove('purch-day-item--selected');
+      });
+
+      // 선택된 플랜 row 숨기기
+      document.getElementById('purchPlanSelected').classList.remove('purch-day-selected--visible');
+      document.getElementById('purchPlanSelectedText').textContent = '';
+
+      // 선택된 수량 row 숨기기
+      document.getElementById('purchQtySelected').classList.remove('purch-day-selected--visible');
+      document.getElementById('purchQtySelectedText').textContent = '';
+
+      // 데이터 플랜 섹션 닫기 + 카드 선택 해제
+      document.getElementById('purchDataSection').classList.remove('purch-data-section--visible');
+      document.querySelectorAll('.dp-plan-card').forEach(function(c) {
+        c.classList.remove('dp-plan-card--selected', 'dp-plan-card--anim');
+        c.style.animationDelay = '';
+      });
+      var dpIntro = document.querySelector('#purchDataSection .dp-intro');
+      if (dpIntro) dpIntro.classList.remove('dp-intro--anim');
+
+      // 수량 섹션 닫기 + 리스트 펼치기
+      document.getElementById('purchQtySection').classList.remove('purch-data-section--visible');
+      document.getElementById('purchQtyListWrap').classList.remove('purch-qty-list-wrap--closed');
+      document.getElementById('purchQtyToggle').classList.remove('purch-qty-header--closed', 'purch-qty-header--anim');
+      document.querySelectorAll('#purchQtyList .purch-day-item').forEach(function(item) {
+        item.classList.remove('purch-qty-item--anim');
+        item.style.animationDelay = '';
+      });
+
+      // 최종 요약 섹션 닫기
+      document.getElementById('purchSummarySection').classList.remove('purch-data-section--visible');
+
+      // 하단 버튼 초기화
+      var buyBtn = document.getElementById('purchBuyBtn');
+      buyBtn.disabled = true;
+      buyBtn.classList.remove('purch-buy-btn--active');
+      buyBtn.textContent = '사용 기간을 선택해주세요';
+      document.getElementById('purchCartBtn').style.display = 'none';
+      window._purchPlanStep = false;
+      window._purchFinalStep = false;
+      window._purchSelectedDay = null;
+      window._purchSelectedLabel = null;
+      window._purchSelectedPrice = null;
+      window._purchFinalQty = null;
+      window._purchFinalTotal = null;
+    }
+
+    // 800원 부터 구매하기 → 초기화 후 패널 열기
+    var purchasePanel = document.getElementById('purchasePanel');
+    document.getElementById('cdpBuyBtn').addEventListener('click', function() {
+      resetPurchasePanel();
+      purchasePanel.classList.add('active');
+    });
+    document.getElementById('purchaseClose').addEventListener('click', function() {
+      purchasePanel.classList.remove('active');
+    });
+
+    // 토글 행 클릭
+    // - 날짜 미선택 상태: 날짜 리스트 펼치기/접기
+    // - 날짜 선택 후: 날짜 리스트 다시 펼쳐서 재선택
+    // 날짜 아이템 순차 등장 애니메이션
+    function animateDayItems() {
+      var items = document.querySelectorAll('#purchDayList .purch-day-item');
+      items.forEach(function(item) {
+        item.classList.remove('purch-qty-item--anim');
+        item.style.animationDelay = '';
+      });
+      items.forEach(function(item, i) {
+        void item.offsetWidth;
+        item.style.animationDelay = (i * 60) + 'ms';
+        item.classList.add('purch-qty-item--anim');
+      });
+    }
+
+    document.getElementById('purchDayInfoBtn').addEventListener('click', function() {
+      var wrap = document.getElementById('purchDayListWrap');
+      var isSelected = this.dataset.selected === 'true';
+      if (isSelected) {
+        // 재선택 모드: 리스트 토글 + 데이터 플랜 숨기기
+        var isOpen = wrap.classList.contains('purch-daylist-wrap--open');
+        this.classList.toggle('purch-dayinfo-row--open', !isOpen);
+        wrap.classList.toggle('purch-daylist-wrap--open', !isOpen);
+        if (!isOpen) {
+          animateDayItems();
+          document.getElementById('purchDataSection').classList.remove('purch-data-section--visible');
+          document.getElementById('purchPlanSelected').classList.remove('purch-day-selected--visible');
+          document.getElementById('purchQtySection').classList.remove('purch-data-section--visible');
+          document.getElementById('purchQtySelected').classList.remove('purch-day-selected--visible');
+          document.getElementById('purchSummarySection').classList.remove('purch-data-section--visible');
+          document.getElementById('purchCartBtn').style.display = 'none';
+          var buyBtn = document.getElementById('purchBuyBtn');
+          buyBtn.disabled = true;
+          buyBtn.classList.remove('purch-buy-btn--active');
+          buyBtn.textContent = '고속데이터를 선택해주세요';
+        }
+      } else {
+        // 일반 토글
+        var opening = !wrap.classList.contains('purch-daylist-wrap--open');
+        this.classList.toggle('purch-dayinfo-row--open');
+        wrap.classList.toggle('purch-daylist-wrap--open');
+        if (opening) animateDayItems();
+      }
+    });
+
+    // 날짜 선택 → 리스트 접고 텍스트 교체, 데이터 플랜 펼침
+    document.getElementById('purchDayList').addEventListener('click', function(e) {
+      var btn = e.target.closest('.purch-day-item');
+      if (!btn) return;
+      var day = btn.dataset.day;
+
+      // 날짜 저장
+      window._purchSelectedDay = parseInt(day, 10);
+
+      // 토글 행 텍스트를 "N일 동안" 으로 교체 (카드 위치 불변)
+      var infoBtn = document.getElementById('purchDayInfoBtn');
+      var dayInfoText = document.getElementById('purchDayInfoText');
+      dayInfoText.textContent = day + '일 동안';
+      dayInfoText.classList.add('purch-dayinfo-row__text--selected');
+      infoBtn.dataset.selected = 'true';
+      infoBtn.classList.remove('purch-dayinfo-row--open');
+
+      // 날짜 리스트 닫기
+      document.getElementById('purchDayListWrap').classList.remove('purch-daylist-wrap--open');
+
+      // 데이터 플랜 펼치기 + 애니메이션
+      document.getElementById('purchDataSection').classList.add('purch-data-section--visible');
+
+      // 인트로 텍스트 애니메이션
+      var dpIntro = document.querySelector('#purchDataSection .dp-intro');
+      dpIntro.classList.remove('dp-intro--anim');
+      void dpIntro.offsetWidth; // reflow로 애니메이션 재시작
+      dpIntro.classList.add('dp-intro--anim');
+
+      // 카드 순차 등장 (텍스트 끝난 후 150ms 간격)
+      var cards = document.querySelectorAll('#dpPlanList .dp-plan-card');
+      cards.forEach(function(c) {
+        c.classList.remove('dp-plan-card--anim');
+        c.style.animationDelay = '';
+      });
+      cards.forEach(function(c, i) {
+        void c.offsetWidth;
+        c.style.animationDelay = (320 + i * 150) + 'ms';
+        c.classList.add('dp-plan-card--anim');
+      });
+
+      // 데이터 플랜 초기화
+      cards.forEach(function(c) {
+        c.classList.remove('dp-plan-card--selected');
+      });
+      var buyBtn = document.getElementById('purchBuyBtn');
+      buyBtn.disabled = true;
+      buyBtn.classList.remove('purch-buy-btn--active');
+      buyBtn.textContent = '고속데이터를 선택해주세요';
+    });
+
+    // 데이터 플랜 카드 클릭 → 파란 테두리 + 하단 버튼 활성화
+    window._purchPlanStep = false; // 플랜 선택 대기 중 여부
+    document.getElementById('dpPlanList').addEventListener('click', function(e) {
+      var card = e.target.closest('.dp-plan-card');
+      if (!card) return;
+      this.querySelectorAll('.dp-plan-card').forEach(function(c) {
+        c.classList.remove('dp-plan-card--selected');
+      });
+      card.classList.add('dp-plan-card--selected');
+
+      // 선택한 플랜 저장
+      window._purchSelectedPrice = parseInt(card.dataset.price.replace(/,/g, ''), 10);
+      window._purchSelectedLabel = card.dataset.label;
+      window._purchPlanStep = true;
+
+      // 버튼 활성화 (가격 표시)
+      var buyBtn = document.getElementById('purchBuyBtn');
+      buyBtn.disabled = false;
+      buyBtn.classList.add('purch-buy-btn--active');
+      buyBtn.textContent = card.dataset.price + '원 선택';
+    });
+
+    // 하단 버튼 클릭 → 플랜 선택 or 최종 구매
+    document.getElementById('purchBuyBtn').addEventListener('click', function() {
+      // ── 최종 구매 완료 단계 ──
+      if (window._purchFinalStep) {
+        window._purchFinalStep = false;
+        var currentCountry = window._purchCurrentCountry || '홍콩';
+        var cData = countryData[currentCountry] || {};
+        var purchaseInfo = {
+          country: currentCountry,
+          title: cData.title || currentCountry + ' 무제한',
+          img: cData.img || '',
+          days: window._purchSelectedDay || 1,
+          label: window._purchSelectedLabel || '',
+          qty: window._purchFinalQty || 1,
+          total: window._purchFinalTotal || 0,
+          status: '설치 전'
+        };
+        renderMyDataCard(purchaseInfo);
+        // 패널 모두 닫기
+        document.getElementById('purchasePanel').classList.remove('active');
+        document.getElementById('countryDetailPanel').classList.remove('active');
+        document.getElementById('overlay').classList.remove('active');
+        resetPurchasePanel();
+        return;
+      }
+
+      if (!window._purchPlanStep) return;
+      window._purchPlanStep = false;
+
+      // 버튼 즉시 비활성화
+      this.disabled = true;
+      this.classList.remove('purch-buy-btn--active');
+      this.textContent = '수량을 선택해주세요';
+
+      // 데이터 플랜 섹션 접기
+      document.getElementById('purchDataSection').classList.remove('purch-data-section--visible');
+
+      // 접힌 후 선택된 플랜 표시 + 수량 섹션 펼치기
+      setTimeout(function() {
+        // 선택된 플랜 표시
+        document.getElementById('purchPlanSelectedText').textContent = window._purchSelectedLabel;
+        document.getElementById('purchPlanSelected').classList.add('purch-day-selected--visible');
+
+        // 수량 섹션 펼치기
+        document.getElementById('purchQtySection').classList.add('purch-data-section--visible');
+
+        // 인트로 텍스트 먼저 등장
+        var qtyIntro = document.getElementById('purchQtyIntro');
+        qtyIntro.classList.remove('dp-intro--anim');
+        void qtyIntro.offsetWidth;
+        qtyIntro.classList.add('dp-intro--anim');
+
+        // 카드 토글 행 등장
+        var qtyHeader = document.getElementById('purchQtyToggle');
+        qtyHeader.classList.remove('purch-qty-header--anim');
+        void qtyHeader.offsetWidth;
+        qtyHeader.style.animationDelay = '280ms';
+        qtyHeader.classList.add('purch-qty-header--anim');
+
+        // 수량 버튼 순차 등장
+        var qtyItems = document.querySelectorAll('#purchQtyList .purch-day-item');
+        qtyItems.forEach(function(item) {
+          item.classList.remove('purch-qty-item--anim');
+          item.style.animationDelay = '';
+        });
+        qtyItems.forEach(function(item, i) {
+          void item.offsetWidth;
+          item.style.animationDelay = (420 + i * 100) + 'ms';
+          item.classList.add('purch-qty-item--anim');
+        });
+      }, 320);
+      this.textContent = '수량을 선택해주세요';
+    });
+
+    // 선택된 플랜 클릭 → 재선택
+    document.getElementById('purchPlanSelected').addEventListener('click', function() {
+      this.classList.remove('purch-day-selected--visible');
+      document.getElementById('purchDataSection').classList.add('purch-data-section--visible');
+      document.getElementById('purchQtySection').classList.remove('purch-data-section--visible');
+      document.getElementById('purchQtySelected').classList.remove('purch-day-selected--visible');
+      document.getElementById('purchSummarySection').classList.remove('purch-data-section--visible');
+      var buyBtn = document.getElementById('purchBuyBtn');
+      buyBtn.disabled = true;
+      buyBtn.classList.remove('purch-buy-btn--active');
+      buyBtn.textContent = '고속데이터를 선택해주세요';
+      document.getElementById('purchCartBtn').style.display = 'none';
+    });
+
+    // 수량 선택 → 접기, 최종 요약 표시
+    document.getElementById('purchQtyList').addEventListener('click', function(e) {
+      var btn = e.target.closest('.purch-day-item');
+      if (!btn) return;
+      var qty = parseInt(btn.dataset.qty, 10);
+      var unitPrice = window._purchSelectedPrice || 0;
+      var totalOriginal = unitPrice * qty;
+      var discount = Math.round(totalOriginal * 0.24);
+      var totalSale = totalOriginal - discount;
+      var pct = 24;
+
+      // 수량 섹션 접기
+      document.getElementById('purchQtySection').classList.remove('purch-data-section--visible');
+      setTimeout(function() {
+        // 선택된 수량 표시
+        document.getElementById('purchQtySelectedText').textContent = qty + '개';
+        document.getElementById('purchQtySelected').classList.add('purch-day-selected--visible');
+
+        // 요약 내용 업데이트
+        document.getElementById('purchOriginalPrice').textContent = totalOriginal.toLocaleString() + '원';
+        document.getElementById('purchDiscountBadge').textContent = pct + '% 할인';
+        document.getElementById('purchSalePrice').textContent = totalSale.toLocaleString() + '원';
+
+        // 요약 섹션 펼치기
+        document.getElementById('purchSummarySection').classList.add('purch-data-section--visible');
+
+        // 버튼 업데이트
+        var buyBtn = document.getElementById('purchBuyBtn');
+        buyBtn.disabled = false;
+        buyBtn.classList.add('purch-buy-btn--active');
+        buyBtn.textContent = totalSale.toLocaleString() + '원 구매하기';
+        window._purchFinalStep = true;
+        window._purchFinalQty = qty;
+        window._purchFinalTotal = totalSale;
+        var cartBtn = document.getElementById('purchCartBtn');
+        cartBtn.style.display = 'block';
+      }, 350);
+    });
+
+    // 선택된 수량 클릭 → 재선택
+    document.getElementById('purchQtySelected').addEventListener('click', function() {
+      this.classList.remove('purch-day-selected--visible');
+      document.getElementById('purchQtySection').classList.add('purch-data-section--visible');
+      document.getElementById('purchSummarySection').classList.remove('purch-data-section--visible');
+      var buyBtn = document.getElementById('purchBuyBtn');
+      buyBtn.disabled = true;
+      buyBtn.classList.remove('purch-buy-btn--active');
+      buyBtn.textContent = '수량을 선택해주세요';
+      document.getElementById('purchCartBtn').style.display = 'none';
+    });
+
+    // 수량 헤더 화살표 → 리스트 토글
+    document.getElementById('purchQtyToggle').addEventListener('click', function() {
+      this.classList.toggle('purch-qty-header--closed');
+      document.getElementById('purchQtyListWrap').classList.toggle('purch-qty-list-wrap--closed');
+    });
+
+    // eSIM 구매하러 가기 → 검색 패널 열기
+    document.getElementById('dsBuyBtn').addEventListener('click', function() {
+      slidePanel.classList.remove('active');
+      overlay.classList.remove('active');
+      openSearch();
+    });
+
+    // 모델 리스트 패널
+    var modelListPanel = document.getElementById('modelListPanel');
+    document.getElementById('deviceSelectRow').addEventListener('click', function() {
+      modelListPanel.classList.add('active');
+    });
+    document.getElementById('modelListClose').addEventListener('click', function() {
+      modelListPanel.classList.remove('active');
+    });
+    // 모델 선택 시
+    document.querySelectorAll('.model-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        document.getElementById('deviceSelectText').textContent = this.textContent;
+        document.getElementById('deviceSelectText').style.color = '#1A1A2E';
+        modelListPanel.classList.remove('active');
+        nextBtn.classList.add('active');
+        resetDevice();
+        nextBtn.classList.add('active');
+        document.getElementById('deviceSelectText').textContent = this.textContent;
+        document.getElementById('deviceSelectText').style.color = '#1A1A2E';
+      });
+    });
+
+    // ── 최근 검색 관리 ──
+    var RECENT_KEY = 'recentSearches';
+    function getRecents() {
+      try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(e) { return []; }
+    }
+    function saveRecent(name, img) {
+      var list = getRecents().filter(function(r) { return r.name !== name; });
+      list.unshift({ name: name, img: img });
+      if (list.length > 5) list = list.slice(0, 5);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+      renderRecents();
+    }
+    function removeRecent(name) {
+      var list = getRecents().filter(function(r) { return r.name !== name; });
+      localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+      renderRecents();
+    }
+    function renderRecents() {
+      var list = getRecents();
+      var container = document.getElementById('recentSearchList');
+      var clearAllBtn = document.getElementById('recentClearAll');
+      if (list.length === 0) {
+        container.innerHTML = '<div class="search-empty"><span>최근 검색한 여행지가 없어요</span></div>';
+        clearAllBtn.style.display = 'none';
+        return;
+      }
+      clearAllBtn.style.display = 'block';
+      container.innerHTML = list.map(function(r) {
+        return '<div class="search-recent-item" data-name="' + r.name + '">' +
+          '<div class="search-recent-flag"><img src="' + r.img + '"/></div>' +
+          '<span class="search-recent-name">' + r.name + '</span>' +
+          '<button class="search-recent-del" data-name="' + r.name + '">×</button>' +
+        '</div>';
+      }).join('');
+      // 아이템 클릭
+      container.querySelectorAll('.search-recent-item').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          if (e.target.classList.contains('search-recent-del')) return;
+          searchPanel.classList.remove('active');
+          overlay.classList.remove('active');
+          openCountryDetail(this.dataset.name);
+        });
+      });
+      // 개별 삭제
+      container.querySelectorAll('.search-recent-del').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          removeRecent(this.dataset.name);
+        });
+      });
+    }
+    // 전체 삭제
+    document.getElementById('recentClearAll').addEventListener('click', function() {
+      localStorage.removeItem(RECENT_KEY);
+      renderRecents();
+    });
+    // 패널 열릴 때마다 최근 검색 갱신
+    renderRecents();
+
+    // 국가 검색 기능
+    var countries = [
+      { name: '일본', img: 'japan.png' },
+      { name: '태국', img: 'thailand.png' },
+      { name: '베트남', img: 'vietnam.png' },
+      { name: '홍콩', img: 'hongkong.png' },
+    ];
+    var searchInput     = document.getElementById('countrySearchInput');
+    var searchResults   = document.getElementById('searchResults');
+    var searchDefault   = document.getElementById('searchDefault');
+    var searchResultList = document.getElementById('searchResultList');
+    var searchClearBtn  = document.getElementById('searchClearBtn');
+    var searchIconSvg   = document.getElementById('searchIconSvg');
+
+    searchInput.addEventListener('input', function() {
+      var val = this.value.trim();
+      if (val === '') {
+        searchResults.style.display = 'none';
+        searchDefault.style.display = 'block';
+        searchClearBtn.style.display = 'none';
+        searchIconSvg.style.display = 'block';
+      } else {
+        searchClearBtn.style.display = 'flex';
+        searchIconSvg.style.display = 'none';
+        var filtered = countries.filter(function(c) { return c.name.includes(val); });
+        searchResultList.innerHTML = filtered.map(function(c) {
+          return '<div class="search-result-item" data-name="' + c.name + '">' +
+            '<div class="search-result-flag"><img src="' + c.img + '"/></div>' +
+            '<span class="search-result-name">' + c.name + '</span>' +
+            '</div>';
+        }).join('');
+        // 검색 결과 클릭 → 국가 상세 패널
+        searchResultList.querySelectorAll('.search-result-item').forEach(function(el) {
+          el.addEventListener('click', function() {
+            var country = countries.find(function(c) { return c.name === el.dataset.name; });
+            if (country) saveRecent(country.name, country.img);
+            searchPanel.classList.remove('active');
+            overlay.classList.remove('active');
+            openCountryDetail(this.dataset.name);
+          });
+        });
+        searchResults.style.display = 'block';
+        searchDefault.style.display = 'none';
+      }
+    });
+
+    searchClearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.focus();
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var track   = document.getElementById('bannerTrack');
+    var REAL    = 5;       // 실제 슬라이드 수
+    var current = 0;       // 0~4 (실제 인덱스)
+    var pos     = 0;       // 트랙 현재 위치 (0~5, 5번은 복제)
+    var startX  = 0;
+    var isDrag  = false;
+    var timer;
+
+    function slideTo(idx, animate) {
+      track.style.transition = animate === false
+        ? 'none'
+        : 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    }
+
+    function updatePager() {
+      document.getElementById('bannerCurrent').textContent = current + 1;
+    }
+
+    function next() {
+      pos++;
+      slideTo(pos, true);
+      if (pos === REAL) {
+        // 복제 슬라이드(5번) 표시 후 → 실제 0번으로 순간이동
+        current = 0;
+      } else {
+        current = pos;
+      }
+      updatePager();
+    }
+
+    // 트랜지션 끝나면 복제 위치에서 실제 위치로 순간이동
+    track.addEventListener('transitionend', function () {
+      if (pos === REAL) {
+        pos = 0;
+        slideTo(0, false);
+      }
+    });
+
+    function startTimer() { timer = setInterval(next, 3000); }
+    function resetTimer()  { clearInterval(timer); startTimer(); }
+
+    // 터치
+    track.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+      isDrag = true;
+      clearInterval(timer);
+    }, { passive: true });
+
+    track.addEventListener('touchend', function (e) {
+      if (!isDrag) return;
+      var dx = e.changedTouches[0].clientX - startX;
+      if (dx < -30) next();
+      isDrag = false;
+      resetTimer();
+    });
+
+    // 마우스 드래그
+    track.addEventListener('mousedown', function (e) {
+      startX = e.clientX;
+      isDrag = true;
+      clearInterval(timer);
+    });
+    window.addEventListener('mouseup', function (e) {
+      if (!isDrag) return;
+      var dx = e.clientX - startX;
+      if (dx < -30) next();
+      isDrag = false;
+      resetTimer();
+    });
+
+    slideTo(0, false);
+    updatePager();
+    startTimer();
+  })();
+</script>
+</body>
+</html>
