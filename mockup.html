@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iPhone 15 Pro Mockup</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1A1A1A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .scene {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .label {
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── iPhone 15 Pro 프레임 ── */
+    .iphone {
+      position: relative;
+      width: 393px;
+      height: 852px;
+      background: #1C1C1E;
+      border-radius: 54px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.12),
+        0 0 0 2px #3A3A3C,
+        0 0 0 3px rgba(255,255,255,0.06),
+        0 40px 120px rgba(0,0,0,0.8),
+        0 10px 40px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    /* 측면 버튼들 */
+    .iphone::before {
+      content: '';
+      position: absolute;
+      left: -3px;
+      top: 120px;
+      width: 3px;
+      height: 36px;
+      background: #3A3A3C;
+      border-radius: 2px 0 0 2px;
+      box-shadow: 0 54px 0 #3A3A3C, 0 100px 0 #3A3A3C;
+    }
+    .iphone::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 170px;
+      width: 3px;
+      height: 72px;
+      background: #3A3A3C;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* 화면 영역 */
+    .iphone-screen {
+      position: absolute;
+      inset: 0;
+      border-radius: 54px;
+      overflow: hidden;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 126px;
+      height: 37px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 54px;
+    }
+
+    /* 상태바 */
+    .status-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 59px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 28px 10px;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .status-bar__time {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      letter-spacing: -0.3px;
+      font-family: -apple-system, 'SF Pro Text', sans-serif;
+    }
+
+    .status-bar__icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* 하단 홈 인디케이터 */
+    .home-indicator {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 134px;
+      height: 5px;
+      background: rgba(255,255,255,0.35);
+      border-radius: 999px;
+      z-index: 10;
+    }
+
+    /* 크기 기준 표시 */
+    .size-info {
+      display: flex;
+      gap: 32px;
+    }
+
+    .size-badge {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    .size-badge__title {
+      color: rgba(255,255,255,0.35);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .size-badge__value {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <p class="label">iPhone 15 Pro · 실제 UI 크기 미리보기</p>
+
+    <div class="iphone">
+      <div class="iphone-screen">
+        <iframe src="index.html" scrolling="no"></iframe>
+      </div>
+      <div class="dynamic-island"></div>
+      <!-- 상태바 -->
+      <div class="status-bar">
+        <span class="status-bar__time" id="status-time">9:41</span>
+        <div class="status-bar__icons">
+          <!-- 통신 신호 -->
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="#1A1A1A">
+            <rect x="0" y="7" width="3" height="5" rx="0.8"/>
+            <rect x="4.5" y="5" width="3" height="7" rx="0.8"/>
+            <rect x="9" y="2.5" width="3" height="9.5" rx="0.8"/>
+            <rect x="13.5" y="0" width="3" height="12" rx="0.8"/>
+          </svg>
+          <!-- 와이파이 -->
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+            <path d="M8 9.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" fill="#1A1A1A"/>
+            <path d="M3.5 6.5C4.9 5.1 6.4 4.4 8 4.4s3.1.7 4.5 2.1" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M1 3.8C3.1 1.7 5.4.6 8 .6s4.9 1.1 7 3.2" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          </svg>
+          <!-- 배터리 -->
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+            <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#1A1A1A" stroke-opacity="0.35"/>
+            <rect x="2" y="2" width="16" height="8" rx="2" fill="#1A1A1A"/>
+            <path d="M23 4v4a2 2 0 000-4z" fill="#1A1A1A" fill-opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+      <div class="home-indicator"></div>
+    </div>
+
+    <div class="size-info">
+      <div class="size-badge">
+        <p class="size-badge__title">SCREEN</p>
+        <p class="size-badge__value">393 × 852 pt</p>
+      </div>
+      <div class="size-badge">
+        <p class="size-badge__title">DISPLAY</p>
+        <p class="size-badge__value">6.1 inch</p>
+      </div>
+      <div class="size-badge">
+        <p class="size-badge__title">SCALE</p>
+        <p class="size-badge__value">1× (논리 픽셀)</p>
+      </div>
+    </div>
+  </div>
+<script>
+  // 실시간 시계
+  function updateTime() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('status-time').textContent = h + ':' + m;
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  // iframe 로드 후 상태바 높이만큼 패딩 주입 (원본 CSS 무변경)
+  var iframe = document.querySelector('iframe');
+  iframe.addEventListener('load', function () {
+    var style = iframe.contentDocument.createElement('style');
+    style.textContent = [
+      '.home-header {',
+      '  padding-top: calc(59px + 16px) !important;',
+      '}',
+      '.screen-header {',
+      '  padding-top: calc(59px + 16px) !important;',
+      '}',
+      '.search-scroll {',
+      '  padding-top: calc(59px + 16px) !important;',
+      '}'
+    ].join('');
+    iframe.contentDocument.head.appendChild(style);
+  });
+</script>
+</body>
+</html>
